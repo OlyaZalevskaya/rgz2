@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Поиск</h1>
+    <form action="{{ url_for('search') }}" method="POST">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name">
+        <br>
+        <label for="age">Возраст:</label>
+        <input type="text" id="age" name="age">
+        <br>
+        <input type="submit" value="Поиск">
+    </form>
+
+    {% if results %}
+        <h2>Результаты поиска:</h2>
+        <ul>
+            {% for result in results %}
+                <li>
+                    <strong>Имя:</strong> {{ result.username }}
+                    <br>
+                    <strong>Возраст:</strong> {{ result.age }}
+                    <br>
+                    <strong>Пол:</strong> {{ result.gender }}
+                    <br>
+                    <strong>Пол для поиска:</strong> {{ result.preferred_gender }}
+                    <br>
+                    <strong>О себе:</strong> {{ result.about }}
+                    <br>
+                    {% if result.photo %}
+                        <img src="{{ url_for('static', filename=result.photo) }}" alt="Фото профиля" style="width: 35%;">
+                    {% else %}
+                        <p>Фотография профиля не загружена</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if offset >= 3 %}
+        <a href="{{ url_for('search', name=name, age=age, offset=offset - 3) }}">Предыдущие</a>
+    {% endif %}
+
+    {% if results|length >= 3 %}
+        <a href="{{ url_for('search', name=name, age=age, offset=offset + 3) }}">Еще</a>
+    {% endif %}
+{% else %}
+    <p>Нет результатов поиска.</p>
+{% endif %}
+<p>
+    <a href="/" style="color: white; border: 2px solid rgb(96, 159, 121); padding: 5px 10px; border-radius: 5px; margin-right: 10px;">Вернуться на главную</a>
+</p>
+{% endblock %}

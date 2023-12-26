@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <form method="POST" action="/edit_profile" enctype="multipart/form-data">
+        <h1>Редактирование профиля</h1>
+
+        <div>
+            <input type="text" name="username" value="{{ user.username }}" placeholder="Имя">
+            <label for="username">Имя</label>
+        </div>
+        
+        <div>
+            <input type="password" name="password" placeholder="Пароль">
+            <label for="password">Пароль</label>
+        </div>
+
+        <div>
+            <input type="number" name="age" value="{{ user.age }}" placeholder="Возраст">
+            <label for="age">Возраст</label>
+        </div>
+
+        <div>
+            <select name="gender">
+                <option value="">Выберите ваш пол</option>
+                <option value="Мужской" {% if user.gender == 'Мужской' %}selected{% endif %}>Мужской</option>
+                <option value="Женский" {% if user.gender == 'Женский' %}selected{% endif %}>Женский</option>
+            </select>
+            <label for="gender">Пол</label>
+        </div>
+
+        <div>
+            <select name="preferred_gender">
+                <option value="">Выберите пол для поиска</option>
+                <option value="Мужской" {% if user.preferred_gender == 'Мужской' %}selected{% endif %}>Мужской</option>
+                <option value="Женский" {% if user.preferred_gender == 'Женский' %}selected{% endif %}>Женский</option>
+            </select>
+            <label for="preferred_gender">Пол для поиска</label>
+        </div>
+
+        <div>
+            <textarea name="about" placeholder="О себе">{{ user.about }}</textarea>
+            <label for="about">О себе</label>
+        </div>
+
+        <div>
+            <input type="file" name="photo" accept="image/*">
+            <label for="photo">Фотография</label>
+        </div>
+
+        <br><span class="error" style="color: red;">{{ error }}</span><br>
+
+        <input type="submit" value="Сохранить изменения">
+        <p>
+            <a href="/" style="color: white; border: 2px solid rgb(96, 159, 121); padding: 5px 10px; border-radius: 5px; margin-right: 10px;">Вернуться на главную</a>
+        </p>
+    </form>
+{% endblock %}

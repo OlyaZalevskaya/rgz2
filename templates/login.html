@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+    <form method="POST">
+        <h1>Страница входа</h1>
+
+        <div>
+            <input type="text" name="username" placeholder="Имя">
+            <label for="username">Логин</label>
+        </div>
+            
+        <div>
+            <input type="password" name="password" placeholder="Пароль">
+            <label for="password">Пароль</label>
+        </div>
+        <br><span class="error" style="color: red;">{{ error_message }}</span><br>
+
+        <button type="submit">Войти</button>
+        <p>
+            <a href="/" style="color: white; border: 2px solid rgb(96, 159, 121); padding: 5px 10px; border-radius: 5px; margin-right: 10px;">Вернуться на главную</a>
+        </p>
+    </form>
+{% endblock %}
